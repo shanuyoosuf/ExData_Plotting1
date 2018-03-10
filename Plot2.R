@@ -1,1 +1,0 @@
-plot(tbl$Global_active_power~tbl$dateTime, type="l", ylab="Global Active Power (kilowatts)", xlab="")
