@@ -1,5 +1,11 @@
-## Develop Plot 2
-plot(finalData$SetTime, finalData$Global_active_power, type="l", col="black", xlab="", ylab="Global Active Power (kilowatts)")
+Balti_more_Cty <- subset(NEI, fips == "24510")
+tot_PM25ByYear <- tapply(Balti_more_Cty$Emissions, Balti_more_Cty$year, sum)
 
-#dev.copy(png,"plot2.png", width=480, height=480)
-#dev.off()
+##save the plot to png
+png(filename="c:/Coursera/Project5/SecondProject/plot2.png")
+
+plot(names(tot_PM25ByYear), tot_PM25ByYear, type = "l", xlab = "Year", 
+     ylab = expression("Total" ~ PM[2.5] ~ "Emissions (tons)"),
+     main = expression("Total Baltimore City" ~ PM[2.5] ~ "Emissions by Year"))
+
+dev.off()

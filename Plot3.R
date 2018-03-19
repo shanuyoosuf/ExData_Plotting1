@@ -1,10 +1,11 @@
-## Develop Plot 3
-columnlines <- c("black", "red", "blue")
-labels <- c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
-plot(finalData$SetTime, finalData$Sub_metering_1, type="l", col=columnlines[1], xlab="", ylab="Energy sub metering")
-lines(finalData$SetTime, finalData$Sub_metering_2, col=columnlines[2])
-lines(finalData$SetTime, finalData$Sub_metering_3, col=columnlines[3])
-legend("topright", legend=labels, col=columnlines, lty="solid")
+typ_PM25ByYear <- ddply(Balti_more_Cty, .(year, type), function(x) sum(x$Emissions))
+colnames(typ_PM25ByYear)[3] <- "Emissions"
 
-#dev.copy(png, file="plot3.png", height=480, width=480)
-#dev.off()
+##save the plot to png
+png(filename="c:/Coursera/Project5/SecondProject/plot3.png")
+
+qplot(year, Emissions, data = typ_PM25ByYear, color = type, geom = "line") +
+  ggtitle(expression("Baltimore City" ~ PM[2.5] ~ 
+                       "Emissions by Source Type and Year")) + xlab("Year") +
+  ylab(expression("Total" ~ PM[2.5] ~ "Emissions (tons)")) 
+dev.off()

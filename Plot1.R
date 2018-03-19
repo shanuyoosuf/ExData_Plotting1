@@ -1,6 +1,20 @@
-## Develop Plot 1
-hist(finalData$Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
+library(plyr)
+library(ggplot2)
 
 
-#dev.copy(png,"plot1.png", width=480, height=480)
-#dev.off()
+## Question 1
+
+
+## Read data from unzipped files
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+
+tot_EM25ByYear <- tapply(NEI$Emissions, NEI$year, sum)
+##save the plot to png
+png(filename="c:/Coursera/Project5/SecondProject/plot1.png")
+
+plot(names(tot_EM25ByYear), tot_EM25ByYear, type = "l",
+     xlab = "Year", ylab = expression("Total" ~ PM[2.5] ~ "Emissions (tons)"),
+     main = expression("Total US" ~ PM[2.5] ~ "Emissions by Year"))
+
+dev.off()
